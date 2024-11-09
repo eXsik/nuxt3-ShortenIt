@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="text-indigo-500 font-bold text-2xl mb-1">/test123</div>
+    <div class="text-indigo-500 font-bold text-2xl mb-1">
+      {{ link.shortKey }}
+    </div>
     <div class="text-sm text-white/45">
-      https://www.google.com/a-very-long-url
+      {{ link.longUrl }}
     </div>
   </div>
-  <CustomButton class="size-12 grid place-content-center">
+  <CustomButton type="button" class="size-12 grid place-content-center">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -23,6 +25,14 @@
   </CustomButton>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface LinkItemProps {
+  link: {
+    shortKey: string;
+    longUrl: string;
+    id: string;
+  };
+}
 
-<style></style>
+defineProps<LinkItemProps>();
+</script>

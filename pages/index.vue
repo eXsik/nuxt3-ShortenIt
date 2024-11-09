@@ -1,5 +1,5 @@
 <template>
-  <section class="h-screen grid place-content-center">
+  <section class="h-[calc(100vh-65px)] grid place-content-center">
     <div class="max-w-3xl mx-auto text-center">
       <h1 class="text-5xl font-bold leading-normal">
         Make your links tiny and easy to

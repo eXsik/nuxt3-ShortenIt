@@ -17,7 +17,12 @@
     <CustomButton type="submit" class="w-full mt-4"> Login </CustomButton>
     <hr class="border border-white/10 my-6" />
 
-    <CustomButton type="button" class="w-full" variant="secondary">
+    <CustomButton
+      type="button"
+      class="w-full"
+      variant="secondary"
+      @click="handleGithubLogin"
+    >
       Continue with Github
     </CustomButton>
   </form>
@@ -28,4 +33,12 @@ import CustomButton from "~/components/CustomButton.vue";
 
 const email = ref<string>("");
 const password = ref<string>("");
+
+const supabaseAuth = useSupabaseClient();
+
+const handleGithubLogin = () => {
+  supabaseAuth.auth.signInWithOAuth({
+    provider: "github",
+  });
+};
 </script>

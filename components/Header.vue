@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 border-b border-white/20 backdrop-blur bg-black/10"
+    class="sticky top-0 left-0 right-0 border-b border-white/20 backdrop-blur bg-black/10 z-50"
   >
     <nav
       class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl flex items-center justify-between gap-3 h-16"

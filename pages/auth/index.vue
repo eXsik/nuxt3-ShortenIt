@@ -1,5 +1,5 @@
 <template>
-  <section class="h-screen grid place-content-center">
+  <section class="h-[calc(100vh-65px)] grid place-content-center">
     <div class="container">
       <Card class="flex flex-col items-center">
         <div
