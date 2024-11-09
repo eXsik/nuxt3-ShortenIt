@@ -9,12 +9,16 @@
         Shorten<span class="text-indigo-600">It</span>
       </NuxtLink>
 
-      <ul class="flex gap-4 items-center">
-        <li><NuxtLink>Price</NuxtLink></li>
-        <li><NuxtLink>Price</NuxtLink></li>
+      <ul class="flex md:gap-8 gap-2 items-center">
+        <li class="font-medium text-sm">
+          <NuxtLink to="/"> Home </NuxtLink>
+        </li>
+        <li class="font-medium text-sm">
+          <NuxtLink :to="{ name: 'dashboard' }"> Dashboard </NuxtLink>
+        </li>
         <li>
-          <NuxtLink to="/auth">
-            <CustomButton variant="primary" type="button">SignIn</CustomButton>
+          <NuxtLink :to="{ name: 'auth' }">
+            <CustomButton variant="primary" type="button">Sign In</CustomButton>
           </NuxtLink>
         </li>
       </ul>

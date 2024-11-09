@@ -33,7 +33,7 @@ const emit = defineEmits<{ (e: "click", event: MouseEvent): void }>();
 const variantClass = computed(() => {
   switch (props.variant) {
     case "secondary":
-      return "bg-transparent hover:bg-slate-50 border border-indigo-600 hover:border-indigo-700";
+      return "bg-transparent hover:bg-indigo-900/10 border border-indigo-600 hover:border-indigo-700";
     case "danger":
       return "bg-red-500 hover:bg-red-600 border-red-500 hover:border-red-600";
     default:

@@ -1,75 +1,16 @@
-# Nuxt Minimal Starter
+# ShortenIt - URL Shortener
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+ShortenIt is a simple and fast URL shortening app that allows users to create short, shareable links with ease. The app is built using modern technologies such as **Nuxt 3**, **Tailwind CSS**, and **Supabase**, making it fast, responsive, and scalable.
 
-## Setup
+## Features
 
-Make sure to install dependencies:
+- **URL Shortening** – Easily create short URLs that are perfect for sharing.
+- **Link Management** – View and delete shortened links.
+- **Modern UI** – A clean and intuitive interface built with **Tailwind CSS**.
+- **Optimized API** – Fast URL shortening powered by **Supabase** as the backend database.
 
-```bash
-# npm
-npm install
+## Technologies
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- **Nuxt 3** – A Vue.js-based framework for building both SPA and SSR applications.
+- **Tailwind CSS** – A utility-first CSS framework for creating responsive and aesthetically pleasing designs.
+- **Supabase** – A backend-as-a-service solution used to store link data and manage user accounts.

@@ -9,7 +9,7 @@
 
 <style>
 body {
-  @apply bg-black text-white/70 relative;
+  @apply bg-black text-white relative;
 }
 
 body::before {

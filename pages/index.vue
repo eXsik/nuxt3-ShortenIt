@@ -7,10 +7,18 @@
       </h1>
       <p class="my-5 text-lg">
         Transform your long, hard to read URLs into short and shareable links
-        with ShortenIt
+        with our app.
       </p>
+
+      <NuxtLink :to="{ name: 'dashboard' }">
+        <CustomButton type="button" class="mt-10">
+          Shorten your Link
+        </CustomButton>
+      </NuxtLink>
     </div>
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import CustomButton from "~/components/CustomButton.vue";
+</script>
