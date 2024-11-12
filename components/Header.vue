@@ -13,7 +13,7 @@
         <li class="font-medium text-sm">
           <NuxtLink to="/"> Home </NuxtLink>
         </li>
-        <li v-if="user" class="font-medium text-sm">
+        <li v-if="user" class="font-medium text-xs sm:text-sm">
           <NuxtLink :to="{ name: 'dashboard' }"> Dashboard </NuxtLink>
         </li>
         <li v-if="!user">
@@ -21,9 +21,15 @@
             <CustomButton variant="primary" type="button">Sign In</CustomButton>
           </NuxtLink>
         </li>
-        <li v-if="user">
+        <li v-else>
           <NuxtLink :to="{ name: 'index' }">
-            <CustomButton variant="primary" type="button">Log out</CustomButton>
+            <CustomButton
+              variant="primary"
+              type="button"
+              class="px-1.5 text-xs md:text-sm md:px-5"
+              @click="handleLogout"
+              >Log out</CustomButton
+            >
           </NuxtLink>
         </li>
       </ul>
@@ -35,6 +41,15 @@
 import CustomButton from "./CustomButton.vue";
 
 const user = useSupabaseUser();
+const client = useSupabaseClient();
+
+const handleLogout = async () => {
+  await client.auth.signOut();
+
+  useRouter().push({
+    name: "index",
+  });
+};
 </script>
 
 <style></style>

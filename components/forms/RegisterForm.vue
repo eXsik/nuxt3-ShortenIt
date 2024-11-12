@@ -74,7 +74,9 @@ const handleFormRegister = async () => {
     }
     if (data) {
       errors.value = "";
-      useRouter().push("/dashboard");
+      useRouter().push({
+        name: "dashboard",
+      });
     }
   } catch (error) {
     errors.value = "Something went wrong";

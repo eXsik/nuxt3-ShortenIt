@@ -1,15 +1,15 @@
 <template>
-  <main class="h-[calc(100vh-65px)] md:pt-20">
+  <main class="h-[calc(100vh-65px)] pb-20 pt-10 md:pt-10 mb-20">
     <section class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-white">Dashboard</h2>
     </section>
     <section class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
       <Card>
-        <LinkForm />
+        <LinkForm @created-short-link="refresh" />
       </Card>
     </section>
     <section
-      class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10 flex flex-col gap-4"
+      class="container mx-auto max-w-7xl pb-12 md:pb-10 px-4 sm:px-6 lg:px-8 mt-10 flex flex-col gap-4"
     >
       <Card class="flex justify-between" v-for="link in data" :key="link.id">
         <LinkItem
@@ -31,7 +31,5 @@ definePageMeta({
   middleware: "auth",
 });
 
-const { data, error } = useLinks();
-
-console.log("data", { data });
+const { data, error, refresh } = useLinks();
 </script>

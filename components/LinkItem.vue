@@ -1,27 +1,31 @@
 <template>
-  <div>
-    <div class="text-indigo-500 font-bold text-2xl mb-1">
-      /{{ link.shortKey }}
-    </div>
+  <div class="flex flex-col gap-3">
+    <div class="text-indigo-500 font-bold text-2xl">/{{ link.shortKey }}</div>
     <div class="text-sm text-white/45">
-      {{ isShortLink ? link.longUrl?.slice(0, 50) + "..." : link.longUrl }}
+      <p class="overflow-wrap-anywhere inline-block">
+        {{ isShortLink ? link.longUrl?.slice(0, 50) + "..." : link.longUrl }}
+      </p>
       <button
         type="button"
-        class="border-none bg-none text-indigo-500"
+        class="border-none bg-none text-indigo-500 sm:ml-2 mt-2 md:mt-0"
         @click="isShortLink = !isShortLink"
       >
         View more
       </button>
     </div>
   </div>
-  <CustomButton type="button" class="size-12 grid place-content-center">
+  <CustomButton
+    type="button"
+    class="size-10 md:size-12 grid place-content-center"
+    @click="handleCopyLink"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
       stroke-width="2"
       stroke="currentColor"
-      class="size-6"
+      class="size-5 md:size-6"
     >
       <path
         stroke-linecap="round"
@@ -41,7 +45,22 @@ interface LinkItemProps {
   };
 }
 
+const props = defineProps<LinkItemProps>();
+
+const config = useRuntimeConfig();
 const isShortLink = ref<boolean>(true);
 
-defineProps<LinkItemProps>();
+const handleCopyLink = () => {
+  navigator.clipboard.writeText(
+    `${config.public.appUrl}/${props.link.shortKey}`
+  );
+
+  alert("Copied to clipboard");
+};
 </script>
+
+<style>
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+}
+</style>

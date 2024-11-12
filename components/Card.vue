@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-w-[350px] bg-black/5 rounded-md p-5 border-2 border-white/10 backdrop-blur-md"
+    class="min-w-[310px] w-full bg-black/5 rounded-md p-3 md:p-5 border-2 border-white/10 backdrop-blur-md gap-2"
   >
     <slot />
   </div>

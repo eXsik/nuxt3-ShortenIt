@@ -4,7 +4,7 @@ export const useLinks = () => {
   const client = useSupabaseClient<Database>();
   const user = useSupabaseUser();
 
-  const { data, error } = useAsyncData("links", async () => {
+  const { data, error, refresh } = useAsyncData("links", async () => {
     if (user?.value?.id) {
       const { data, error } = await client
         .from("links")
@@ -20,5 +20,5 @@ export const useLinks = () => {
 
     return [];
   });
-  return { data, error };
+  return { data, error, refresh };
 };

@@ -38,6 +38,8 @@ const form = reactive({
 
 const client = useSupabaseClient<Database>();
 
+const emit = defineEmits(["createdShortLink"]);
+
 const handleLinkForm = async () => {
   const user = useSupabaseUser();
 
@@ -58,6 +60,7 @@ const handleLinkForm = async () => {
     createShortKey();
     form.longUrl = "";
     console.log("success link created");
+    emit("createdShortLink", 1);
   } catch (error) {
     console.error(error);
     return;
