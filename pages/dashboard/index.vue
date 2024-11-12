@@ -11,12 +11,12 @@
     <section
       class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10 flex flex-col gap-4"
     >
-      <Card class="flex justify-between" v-for="i in 10" :key="i">
+      <Card class="flex justify-between" v-for="link in data" :key="link.id">
         <LinkItem
           :link="{
-            shortKey: 'test123',
-            longUrl: 'https://google.com',
-            id: '1',
+            shortKey: link.key,
+            longUrl: link?.long_url || '',
+            id: link.id,
           }"
         />
       </Card>
@@ -26,4 +26,12 @@
 
 <script setup lang="ts">
 import LinkForm from "~/components/forms/LinkForm.vue";
+
+definePageMeta({
+  middleware: "auth",
+});
+
+const { data, error } = useLinks();
+
+console.log("data", { data });
 </script>

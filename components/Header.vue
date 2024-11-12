@@ -13,12 +13,17 @@
         <li class="font-medium text-sm">
           <NuxtLink to="/"> Home </NuxtLink>
         </li>
-        <li class="font-medium text-sm">
+        <li v-if="user" class="font-medium text-sm">
           <NuxtLink :to="{ name: 'dashboard' }"> Dashboard </NuxtLink>
         </li>
-        <li>
-          <NuxtLink :to="{ name: 'auth' }">
+        <li v-if="!user">
+          <NuxtLink :to="{ name: 'auth-login' }">
             <CustomButton variant="primary" type="button">Sign In</CustomButton>
+          </NuxtLink>
+        </li>
+        <li v-if="user">
+          <NuxtLink :to="{ name: 'index' }">
+            <CustomButton variant="primary" type="button">Log out</CustomButton>
           </NuxtLink>
         </li>
       </ul>
@@ -28,6 +33,8 @@
 
 <script setup lang="ts">
 import CustomButton from "./CustomButton.vue";
+
+const user = useSupabaseUser();
 </script>
 
 <style></style>

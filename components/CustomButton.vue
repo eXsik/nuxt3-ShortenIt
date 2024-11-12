@@ -11,8 +11,8 @@
     @click="handleClick"
     :type="type"
   >
-    <span v-if="!isLoading"><slot /></span>
-    <span v-else>Loading...</span>
+    <span v-if="!isLoading" class="w-full"><slot /></span>
+    <span v-else class="w-full">Loading...</span>
   </button>
 </template>
 

@@ -10,6 +10,7 @@
       :type="type"
       :id="id"
       :value="modelValue"
+      @input="handleInput"
       class="px-4 py-2 border border-white/20 rounded-md shadow-sm bg-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
       :placeholder="placeholder"
     />
@@ -24,7 +25,9 @@ interface InputProps {
   type?: "text" | "email" | "password" | "number";
   placeholder?: string;
 }
-
+const modelValue = defineModel<string>();
 defineProps<InputProps>();
-defineModel("modelValue");
+function handleInput(event: Event) {
+  modelValue.value = (event.target as HTMLInputElement).value;
+}
 </script>

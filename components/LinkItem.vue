@@ -1,10 +1,17 @@
 <template>
   <div>
     <div class="text-indigo-500 font-bold text-2xl mb-1">
-      {{ link.shortKey }}
+      /{{ link.shortKey }}
     </div>
     <div class="text-sm text-white/45">
-      {{ link.longUrl }}
+      {{ isShortLink ? link.longUrl?.slice(0, 50) + "..." : link.longUrl }}
+      <button
+        type="button"
+        class="border-none bg-none text-indigo-500"
+        @click="isShortLink = !isShortLink"
+      >
+        View more
+      </button>
     </div>
   </div>
   <CustomButton type="button" class="size-12 grid place-content-center">
@@ -12,7 +19,7 @@
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      stroke-width="1.5"
+      stroke-width="2"
       stroke="currentColor"
       class="size-6"
     >
@@ -30,9 +37,11 @@ interface LinkItemProps {
   link: {
     shortKey: string;
     longUrl: string;
-    id: string;
+    id: number;
   };
 }
+
+const isShortLink = ref<boolean>(true);
 
 defineProps<LinkItemProps>();
 </script>
