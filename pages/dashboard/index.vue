@@ -5,13 +5,13 @@
     </section>
     <section class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
       <Card>
-        <LinkForm @created-short-link="refresh" />
+        <LinkForm @created-short-link="refreshLinks" />
       </Card>
     </section>
     <section
       class="container mx-auto max-w-7xl pb-12 md:pb-10 px-4 sm:px-6 lg:px-8 mt-10 flex flex-col gap-4"
     >
-      <Card class="flex justify-between" v-for="link in data" :key="link.id">
+      <Card class="flex justify-between" v-for="link in links" :key="link.id">
         <LinkItem
           :link="{
             shortKey: link.key,
@@ -31,5 +31,5 @@ definePageMeta({
   middleware: "auth",
 });
 
-const { data, error, refresh } = useLinks();
+const { links, linksError, refreshLinks } = useLinks();
 </script>

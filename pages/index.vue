@@ -1,7 +1,7 @@
 <template>
   <section class="h-[calc(100vh-65px)] grid place-content-center">
-    <div class="max-w-3xl mx-auto text-center">
-      <h1 class="text-5xl font-bold leading-normal">
+    <div class="max-w-3xl mx-auto text-center px-4">
+      <h1 class="text-4xl md:text-5xl font-bold leading-normal">
         Make your links tiny and easy to
         <span class="text-indigo-600">share with ShortenIt</span>
       </h1>

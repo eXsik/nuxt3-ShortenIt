@@ -26,7 +26,7 @@
             <CustomButton
               variant="primary"
               type="button"
-              class="px-1.5 text-xs md:text-sm md:px-5"
+              class="!px-1.5 text-xs md:text-sm md:px-5"
               @click="handleLogout"
               >Log out</CustomButton
             >
