@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import LinkForm from "~/components/forms/LinkForm.vue";
 
-const { links, linksError, refreshLinks } = useLinks();
+const { links, refreshLinks } = useLinks();
 
 definePageMeta({
   middleware: "auth",
