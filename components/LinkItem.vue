@@ -62,6 +62,8 @@
 </template>
 
 <script setup lang="ts">
+import { useClipboard } from "~/composables/useClipboard";
+
 interface LinkItemProps {
   link: {
     shortKey: string;
@@ -75,14 +77,12 @@ const props = defineProps<LinkItemProps>();
 
 const config = useRuntimeConfig();
 const isShortLink = ref<boolean>(true);
+const { copyToClipboard } = useClipboard();
 
 const handleCopyLink = () => {
   console.log("config", config.public.appUrl);
-  navigator.clipboard.writeText(
-    `${config.public.appUrl}/${props.link.shortKey}`
-  );
-
-  alert("Copied to clipboard");
+  const url: string = `${config.public.appUrl}/${props.link.shortKey}`;
+  copyToClipboard(url);
 };
 </script>
 
