@@ -77,6 +77,7 @@ const config = useRuntimeConfig();
 const isShortLink = ref<boolean>(true);
 
 const handleCopyLink = () => {
+  console.log("config", config.public.appUrl);
   navigator.clipboard.writeText(
     `${config.public.appUrl}/${props.link.shortKey}`
   );
