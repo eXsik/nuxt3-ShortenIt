@@ -1,5 +1,7 @@
 # ShortenIt - URL Shortener
 
+Check it out: https://nuxt3-shorten-it.vercel.app/
+
 ShortenIt is a simple and fast URL shortening app that allows users to create short, shareable links with ease. The app is built using modern technologies such as **Nuxt 3**, **Tailwind CSS**, and **Supabase**, making it fast, responsive, and scalable.
 
 ## Features
