@@ -29,6 +29,15 @@
 <script setup lang="ts">
 import Card from "~/components/Card.vue";
 import LoginForm from "~/components/forms/LoginForm.vue";
-</script>
 
-<style></style>
+definePageMeta({
+  title: "Login - ShortenIt | URL Shortener",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Login to ShortenIt to access your account and start shortening URLs. Create short, shareable links with ease.",
+    },
+  ],
+});
+</script>

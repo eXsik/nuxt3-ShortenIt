@@ -29,6 +29,15 @@
 <script setup lang="ts">
 import Card from "~/components/Card.vue";
 import RegisterForm from "~/components/forms/RegisterForm.vue";
-</script>
 
-<style></style>
+definePageMeta({
+  title: "Sign Up - ShortenIt | Create an Account for URL Shortening",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Sign up for ShortenIt and start shortening URLs with ease. Create an account to manage your links, track clicks, and enjoy additional features.",
+    },
+  ],
+});
+</script>

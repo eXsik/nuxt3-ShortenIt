@@ -11,4 +11,11 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
   },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+    },
+  },
 });

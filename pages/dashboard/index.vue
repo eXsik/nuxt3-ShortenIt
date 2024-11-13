@@ -30,6 +30,14 @@ import LinkForm from "~/components/forms/LinkForm.vue";
 
 definePageMeta({
   middleware: "auth",
+  title: "Dashboard - ShortenIt | Manage Your Shortened Links and Track Stats",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Access your ShortenIt dashboard to manage your shortened links, track clicks, view statistics, and optimize your URL shortening experience.",
+    },
+  ],
 });
 
 const { links, linksError, refreshLinks } = useLinks();

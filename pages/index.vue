@@ -20,5 +20,16 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  title: "ShortenIt - URL Shortener for Clean and Easy Links",
+  meta: [
+    {
+      name: "description",
+      content:
+        "ShortenIt is a fast and easy URL shortener that helps you create clean, short, and shareable links. Perfect for social media, emails, and more.",
+    },
+  ],
+});
+
 import CustomButton from "~/components/CustomButton.vue";
 </script>
