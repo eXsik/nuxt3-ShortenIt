@@ -28,8 +28,13 @@
 <script setup lang="ts">
 import LinkForm from "~/components/forms/LinkForm.vue";
 
+const { links, linksError, refreshLinks } = useLinks();
+
 definePageMeta({
   middleware: "auth",
+});
+
+useHead({
   title: "Dashboard - ShortenIt | Manage Your Shortened Links and Track Stats",
   meta: [
     {
@@ -39,6 +44,4 @@ definePageMeta({
     },
   ],
 });
-
-const { links, linksError, refreshLinks } = useLinks();
 </script>

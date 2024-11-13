@@ -30,7 +30,7 @@
 import Card from "~/components/Card.vue";
 import RegisterForm from "~/components/forms/RegisterForm.vue";
 
-definePageMeta({
+useHead({
   title: "Sign Up - ShortenIt | Create an Account for URL Shortening",
   meta: [
     {

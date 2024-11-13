@@ -20,7 +20,9 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
+import CustomButton from "~/components/CustomButton.vue";
+
+useHead({
   title: "ShortenIt - URL Shortener for Clean and Easy Links",
   meta: [
     {
@@ -30,6 +32,4 @@ definePageMeta({
     },
   ],
 });
-
-import CustomButton from "~/components/CustomButton.vue";
 </script>
