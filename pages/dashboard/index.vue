@@ -17,6 +17,7 @@
             shortKey: link.key,
             longUrl: link?.long_url || '',
             id: link.id,
+            totalClicks: link.total_clicks || 0,
           }"
         />
       </Card>

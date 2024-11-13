@@ -13,6 +13,7 @@ export const useLinks = () => {
       const { data, error } = await client
         .from("links")
         .select("*")
+        .order("created_at", { ascending: false })
         .eq("user_id", user?.value?.id);
 
       if (error) {

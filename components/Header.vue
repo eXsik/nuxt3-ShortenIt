@@ -11,16 +11,29 @@
 
       <ul class="flex md:gap-8 gap-2 items-center">
         <li class="font-medium text-sm">
-          <NuxtLink to="/"> Home </NuxtLink>
+          <NuxtLink
+            :to="{ name: 'index' }"
+            class="border-b-2 border-transparent pb-2 hover:border-b-indigo-600 transition-colors"
+            :class="{ 'border-b-indigo-500': isActive('/') }"
+          >
+            Home
+          </NuxtLink>
         </li>
         <li v-if="user" class="font-medium text-xs sm:text-sm">
-          <NuxtLink :to="{ name: 'dashboard' }"> Dashboard </NuxtLink>
+          <NuxtLink
+            :to="{ name: 'dashboard' }"
+            class="border-b-2 border-transparent pb-2 hover:border-b-indigo-600 transition-colors"
+            :class="{ 'border-b-indigo-500': isActive('/dashboard') }"
+          >
+            Dashboard
+          </NuxtLink>
         </li>
         <li v-if="!user">
           <NuxtLink :to="{ name: 'auth-login' }">
             <CustomButton variant="primary" type="button">Sign In</CustomButton>
           </NuxtLink>
         </li>
+
         <li v-else>
           <NuxtLink :to="{ name: 'index' }">
             <CustomButton
@@ -42,6 +55,8 @@ import CustomButton from "./CustomButton.vue";
 
 const user = useSupabaseUser();
 const client = useSupabaseClient();
+
+const { isActive, isActiveOrParent } = useActiveLink();
 
 const handleLogout = async () => {
   await client.auth.signOut();

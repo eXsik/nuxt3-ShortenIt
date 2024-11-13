@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.1",
+    "geoip-lite": "^1.4.10",
     "nanoid": "^5.0.8",
     "nuxt": "^3.14.159",
     "vue": "latest",
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@nuxtjs/supabase": "^1.4.2",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@types/geoip-lite": "^1.4.4",
     "supabase": "^1.219.2"
   }
 }
