@@ -20,15 +20,14 @@
             />
           </svg>
         </div>
-        <LoginForm />
+        <FormsLoginForm />
       </Card>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import Card from "~/components/Card.vue";
-import LoginForm from "~/components/forms/LoginForm.vue";
+import { FormsLoginForm } from "#build/components";
 
 useHead({
   title: "Login - ShortenIt | URL Shortener",

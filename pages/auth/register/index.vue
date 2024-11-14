@@ -20,16 +20,13 @@
             />
           </svg>
         </div>
-        <RegisterForm />
+        <FormsRegisterForm />
       </Card>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import Card from "~/components/Card.vue";
-import RegisterForm from "~/components/forms/RegisterForm.vue";
-
 useHead({
   title: "Sign Up - ShortenIt | Create an Account for URL Shortening",
   meta: [

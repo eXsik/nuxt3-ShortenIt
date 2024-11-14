@@ -5,7 +5,7 @@
     </section>
     <section class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10">
       <Card>
-        <LinkForm @created-short-link="refreshLinks" />
+        <FormsLinkForm @created-short-link="refreshLinks" />
       </Card>
     </section>
     <section
@@ -26,8 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import LinkForm from "~/components/forms/LinkForm.vue";
-
 const { links, refreshLinks } = useLinks();
 
 definePageMeta({

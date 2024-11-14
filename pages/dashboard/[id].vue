@@ -49,7 +49,6 @@
 </template>
 
 <script setup lang="ts">
-import Card from "~/components/Card.vue";
 import type { Database } from "~/types/supabase";
 
 const { id } = useRoute().params;
