@@ -87,7 +87,7 @@ const handleLinkForm = async () => {
 
     createShortKey();
     form.longUrl = "";
-    console.log("success link created");
+
     emit("createdShortLink", 1);
   } catch (error) {
     formError.value = "Something went wrong";

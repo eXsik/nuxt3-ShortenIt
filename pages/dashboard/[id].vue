@@ -7,7 +7,6 @@
         <Card>
           <div
             class="text-2xl text-white/40 truncate overflow-x-auto"
-            texteditable
           >
             {{ data.long_url }}
           </div>

@@ -55,7 +55,7 @@ import CustomButton from "./CustomButton.vue";
 const user = useSupabaseUser();
 const client = useSupabaseClient();
 
-const { isActive, isActiveOrParent } = useActiveLink();
+const { isActive } = useActiveLink();
 
 const handleLogout = async () => {
   await client.auth.signOut();

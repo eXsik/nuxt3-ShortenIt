@@ -80,8 +80,8 @@ const isShortLink = ref<boolean>(true);
 const { copyToClipboard } = useClipboard();
 
 const handleCopyLink = () => {
-  console.log("config", config.public.appUrl);
   const url: string = `${config.public.appUrl}/${props.link.shortKey}`;
+  
   copyToClipboard(url);
 };
 </script>

@@ -42,13 +42,22 @@ export default defineEventHandler(async (event) => {
 
   if (ip) {
     const geo = geoip.lookup(ip);
-    await client.from("clicks").insert({
+
+    void client
+    .from("clicks")
+    .insert({
       link_id: link.id,
       ip,
       country: geo?.country ?? null,
       city: geo?.city ?? null,
       user_agent: userAgent,
+    })
+    .then(({ error: clickError }) => {
+      if (clickError) {
+        console.error("Failed to record click:", clickError.message);
+      }
     });
   }
+
   return sendRedirect(event, link.long_url, 302);
 });

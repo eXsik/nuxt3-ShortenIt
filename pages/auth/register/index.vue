@@ -27,6 +27,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: "guest",
+});
+
 useHead({
   title: "Sign Up - ShortenIt | Create an Account for URL Shortening",
   meta: [

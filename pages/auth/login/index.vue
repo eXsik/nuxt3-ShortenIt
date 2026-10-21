@@ -27,6 +27,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: "guest",
+});
+
 useHead({
   title: "Login - ShortenIt | URL Shortener",
   meta: [
