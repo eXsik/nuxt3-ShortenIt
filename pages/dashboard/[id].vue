@@ -51,17 +51,33 @@
 <script setup lang="ts">
 import type { Database } from "~/types/supabase";
 
+definePageMeta({
+  middleware: "auth",
+});
+
 const { id } = useRoute().params;
 const { formatDate } = useDateFormatter();
+const user = useSupabaseUser();
+const routeId = Array.isArray(id) ? id[0] : String(id);
 
-const { data } = useAsyncData(id.toString(), async () => {
+const { data } = await useAsyncData(`dashboard-link-${routeId}`, async () => {
   const client = useSupabaseClient<Database>();
+
+  if(!user.value?.id) return null;
 
   const { data: response, error } = await client
     .from("links")
     .select("*, clicks(*)")
-    .eq("key", id)
+    .eq("key", routeId)
+    .eq('user_id', user.value.id)
     .single();
+
+  if (error || !response) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Link not found'
+    })
+  }
 
   return response;
 });

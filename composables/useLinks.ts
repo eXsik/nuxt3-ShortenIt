@@ -1,4 +1,4 @@
-import type { Database, Link } from "~/types/supabase";
+import type { Database } from "~/types/supabase";
 
 export const useLinks = () => {
   const client = useSupabaseClient<Database>();
@@ -26,22 +26,5 @@ export const useLinks = () => {
     return [];
   });
 
-  const fetchLinkByKey = async (key: string) => {
-    const { data, error } = await client
-      .from("links")
-      .select("*")
-      .eq("key", key)
-      .single();
-
-    if (error || !data) {
-      throw createError({
-        statusCode: 404,
-        message: "Link not found",
-      });
-    }
-
-    return data as Link;
-  };
-
-  return { links, linksError, refreshLinks, fetchLinkByKey };
+  return { links, linksError, refreshLinks };
 };

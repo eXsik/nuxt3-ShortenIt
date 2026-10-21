@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-3">
     <NuxtLink
       :to="`/dashboard/${link.shortKey}`"
-      class="text-indigo-500 font-bold text-2xl hover:text-indigo-600 transition-colors"
+      class="text-indigo-500 font-bold text-2xl [@media(hover:hover)]:hover:text-indigo-600 transition-colors touch-manipulation"
       >/{{ link.shortKey }}</NuxtLink
     >
     <div class="text-sm text-white/45">
@@ -11,7 +11,7 @@
       </p>
       <button
         type="button"
-        class="border-none bg-none text-indigo-500 sm:ml-2 mt-2 md:mt-0"
+        class="border-none bg-none text-indigo-500 sm:ml-2 mt-2 md:mt-0 touch-manipulation"
         @click="isShortLink = !isShortLink"
       >
         View more

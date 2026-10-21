@@ -1,5 +1,12 @@
 <template>
   <form @submit.prevent="handleLinkForm">
+    <p
+        v-if="formError"
+        class="text-red-500 mb-4 px-4 py-2.5 border border-red-500 rounded-md w-full text-sm font-semibold"
+      >
+        {{ formError }}
+    </p>
+
     <div class="flex md:flex-row flex-col justify-between gap-4 items-center">
       <InputField
         id="url"
@@ -37,10 +44,31 @@ const form = reactive({
 });
 
 const client = useSupabaseClient<Database>();
-
 const emit = defineEmits(["createdShortLink"]);
+const formError = ref("");
+
+function isValidHttpUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
 
 const handleLinkForm = async () => {
+  formError.value = "";
+
+  if (!form.longUrl.trim() || !form.shortKey.trim()) {
+    formError.value = "Please fill in both fields.";
+    return;
+  }
+
+  if (!isValidHttpUrl(form.longUrl.trim())) {
+    formError.value = "Enter a valid URL starting with http:// or https://";
+    return;
+  }
+
   const user = useSupabaseUser();
 
   try {
@@ -51,8 +79,8 @@ const handleLinkForm = async () => {
     });
 
     if (error) {
+      formError.value = error.message;
       console.error("error", error);
-      // errors.value = error.message;
 
       return;
     }
@@ -62,6 +90,7 @@ const handleLinkForm = async () => {
     console.log("success link created");
     emit("createdShortLink", 1);
   } catch (error) {
+    formError.value = "Something went wrong";
     console.error(error);
     return;
   }
