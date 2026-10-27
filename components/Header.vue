@@ -13,7 +13,7 @@
         <li class="font-medium text-sm">
           <NuxtLink
             :to="{ name: 'index' }"
-            class="border-b-2 border-transparent pb-2 hover:border-b-indigo-600 transition-colors"
+            class="border-b-2 border-transparent pb-2 [@media(hover:hover)]:hover:border-b-indigo-600 touch-manipulation transition-colors"
             :class="{ 'border-b-indigo-500': isActive('/') }"
           >
             Home
@@ -22,7 +22,7 @@
         <li v-if="user" class="font-medium text-xs sm:text-sm">
           <NuxtLink
             :to="{ name: 'dashboard' }"
-            class="border-b-2 border-transparent pb-2 hover:border-b-indigo-600 transition-colors"
+            class="border-b-2 border-transparent pb-2 [@media(hover:hover)]:hover:border-b-indigo-600 touch-manipulation transition-colors"
             :class="{ 'border-b-indigo-500': isActive('/dashboard') }"
           >
             Dashboard
@@ -35,18 +35,19 @@
         </li>
 
         <li v-else>
-          <NuxtLink :to="{ name: 'index' }">
-            <CustomButton
-              variant="primary"
-              type="button"
-              class="!px-1.5 text-xs md:text-sm md:px-5"
-              @click="handleLogout"
-              >Log out</CustomButton
-            >
-          </NuxtLink>
+          <CustomButton
+            variant="primary"
+            type="button"
+            class="!px-1.5 text-xs md:text-sm md:px-5 touch-manipulation"
+            @click="handleLogout"
+            :is-loading="isLoggingOut"
+          >
+            Log out
+          </CustomButton>
         </li>
       </ul>
     </nav>
+    <p v-if="logoutError" role="alert" class="mx-auto max-w-7xl px-4 pb-3 text-sm text-rose-300">{{ logoutError }}</p>
   </header>
 </template>
 
@@ -55,15 +56,28 @@ import CustomButton from "./CustomButton.vue";
 
 const user = useSupabaseUser();
 const client = useSupabaseClient();
+const router = useRouter();
+const isLoggingOut = ref(false);
+const logoutError = ref('');
 
-const { isActive, isActiveOrParent } = useActiveLink();
+const { isActive } = useActiveLink();
 
 const handleLogout = async () => {
-  await client.auth.signOut();
-
-  useRouter().push({
-    name: "index",
-  });
+  if (isLoggingOut.value) return;
+  isLoggingOut.value = true;
+  logoutError.value = '';
+  try {
+    const { error } = await client.auth.signOut();
+    if (error) {
+      logoutError.value = 'Could not sign out. Try again.';
+      return;
+    }
+    await router.push({ name: 'index' });
+  } catch {
+    logoutError.value = 'Could not sign out. Try again.';
+  } finally {
+    isLoggingOut.value = false;
+  }
 };
 </script>
 

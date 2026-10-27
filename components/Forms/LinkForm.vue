@@ -1,5 +1,12 @@
 <template>
   <form @submit.prevent="handleLinkForm">
+    <p
+        v-if="formError"
+        class="text-red-500 mb-4 px-4 py-2.5 border border-red-500 rounded-md w-full text-sm font-semibold"
+      >
+        {{ formError }}
+    </p>
+
     <div class="flex md:flex-row flex-col justify-between gap-4 items-center">
       <InputField
         id="url"
@@ -18,6 +25,8 @@
         placeholder="ABC..."
       />
       <CustomButton
+        type="submit"
+        :is-loading="isLoading"
         class="rounded-full w-full md:w-3/12 lg:w-2/12 xl:w-1/12 md:self-end"
       >
         Short It
@@ -29,41 +38,68 @@
 <script setup lang="ts">
 import CustomButton from "~/components/CustomButton.vue";
 import { nanoid } from "nanoid";
-import type { Database } from "~/types/supabase";
 
 const form = reactive({
   longUrl: "",
   shortKey: "",
 });
 
-const client = useSupabaseClient<Database>();
-
 const emit = defineEmits(["createdShortLink"]);
+const formError = ref("");
+const isLoading = ref(false);
+
+function isValidHttpUrl(value: string): boolean {
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
 
 const handleLinkForm = async () => {
-  const user = useSupabaseUser();
+  if (isLoading.value) return;
+  formError.value = "";
+  const longUrl = form.longUrl.trim();
+  const shortKey = form.shortKey.trim();
 
+  if (!longUrl || !shortKey) {
+    formError.value = "Please fill in both fields.";
+    return;
+  }
+
+  if (!isValidHttpUrl(longUrl)) {
+    formError.value = "Enter a valid URL starting with http:// or https://";
+    return;
+  }
+
+  if (!/^[A-Za-z0-9_-]+$/.test(shortKey)) {
+    formError.value = "Use only letters, numbers, hyphens and underscores in the short key.";
+    return;
+  }
+
+  // Keep these names aligned with RESERVED in server/middleware/short-link.ts.
+  if (["try", "dashboard", "auth", "api", "login", "register", "_nuxt", "favicon.ico"].includes(shortKey.toLowerCase())) {
+    formError.value = "This short key is reserved. Choose another one.";
+    return;
+  }
+
+  isLoading.value = true;
   try {
-    const { data, error } = await client.from("links").insert({
-      long_url: form.longUrl,
-      key: form.shortKey,
-      user_id: user.value?.id,
+    await $fetch('/api/links', {
+      method: 'POST',
+      body: { longUrl, shortKey },
     });
-
-    if (error) {
-      console.error("error", error);
-      // errors.value = error.message;
-
-      return;
-    }
 
     createShortKey();
     form.longUrl = "";
-    console.log("success link created");
+
     emit("createdShortLink", 1);
-  } catch (error) {
-    console.error(error);
-    return;
+  } catch (error: unknown) {
+    const fetchError = error as { data?: { statusMessage?: string } };
+    formError.value = fetchError.data?.statusMessage ?? 'Could not shorten link. Try again.';
+  } finally {
+    isLoading.value = false;
   }
 };
 

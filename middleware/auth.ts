@@ -1,7 +1,12 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-  const user = useSupabaseUser();
+export default defineNuxtRouteMiddleware(async () => {
+  const client = useSupabaseClient();
 
-  if (!user.value) {
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+
+  if (!user) {
     return navigateTo("/auth/login");
   }
+
 });

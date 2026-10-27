@@ -1,4 +1,4 @@
-import type { Database, Link } from "~/types/supabase";
+import type { Database } from "~/types/supabase";
 
 export const useLinks = () => {
   const client = useSupabaseClient<Database>();
@@ -8,7 +8,8 @@ export const useLinks = () => {
     data: links,
     error: linksError,
     refresh: refreshLinks,
-  } = useAsyncData("links", async () => {
+    pending: linksPending,
+  } = useAsyncData(`links-${user.value?.id ?? 'guest'}`, async () => {
     if (user?.value?.id) {
       const { data, error } = await client
         .from("links")
@@ -17,8 +18,7 @@ export const useLinks = () => {
         .eq("user_id", user?.value?.id);
 
       if (error) {
-        console.error("Error fetching links:", error);
-        return [];
+        throw createError({ statusCode: 500, statusMessage: 'Could not load links. Try again.' });
       }
       return data;
     }
@@ -26,22 +26,5 @@ export const useLinks = () => {
     return [];
   });
 
-  const fetchLinkByKey = async (key: string) => {
-    const { data, error } = await client
-      .from("links")
-      .select("*")
-      .eq("key", key)
-      .single();
-
-    if (error || !data) {
-      throw createError({
-        statusCode: 404,
-        message: "Link not found",
-      });
-    }
-
-    return data as Link;
-  };
-
-  return { links, linksError, refreshLinks, fetchLinkByKey };
+  return { links, linksError, linksPending, refreshLinks };
 };

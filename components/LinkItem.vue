@@ -1,20 +1,21 @@
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex min-w-0 flex-col gap-3">
     <NuxtLink
       :to="`/dashboard/${link.shortKey}`"
-      class="text-indigo-500 font-bold text-2xl hover:text-indigo-600 transition-colors"
+      class="break-all text-indigo-400 font-bold text-2xl [@media(hover:hover)]:hover:text-indigo-300 transition-colors touch-manipulation"
       >/{{ link.shortKey }}</NuxtLink
     >
     <div class="text-sm text-white/45">
       <p class="overflow-wrap-anywhere inline-block">
-        {{ isShortLink ? link.longUrl?.slice(0, 50) + "..." : link.longUrl }}
+        {{ isShortLink && link.longUrl.length > 50 ? link.longUrl.slice(0, 50) + "..." : link.longUrl }}
       </p>
       <button
+        v-if="link.longUrl.length > 50"
         type="button"
-        class="border-none bg-none text-indigo-500 sm:ml-2 mt-2 md:mt-0"
+        class="border-none bg-none text-indigo-500 sm:ml-2 mt-2 md:mt-0 touch-manipulation"
         @click="isShortLink = !isShortLink"
       >
-        View more
+        {{ isShortLink ? 'View more' : 'View less' }}
       </button>
     </div>
   </div>
@@ -40,6 +41,7 @@
 
     <CustomButton
       type="button"
+      aria-label="Copy short link"
       class="size-10 md:size-12 grid place-content-center"
       @click="handleCopyLink"
     >
@@ -80,8 +82,8 @@ const isShortLink = ref<boolean>(true);
 const { copyToClipboard } = useClipboard();
 
 const handleCopyLink = () => {
-  console.log("config", config.public.appUrl);
   const url: string = `${config.public.appUrl}/${props.link.shortKey}`;
+  
   copyToClipboard(url);
 };
 </script>
