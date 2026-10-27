@@ -62,6 +62,10 @@ const handleClick = (event: MouseEvent) => {
 
 <style scoped>
 .custom-button {
-  @apply font-semibold rounded-md border-2 focus:outline-none ring-0 focus:ring-0 outline-none transition-all duration-300 touch-manipulation;
+  @apply font-semibold rounded-md border-2 transition-colors duration-150 touch-manipulation;
+}
+.custom-button:focus-visible { outline: 3px solid #a5b4fc; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .custom-button { transition: none; }
 }
 </style>

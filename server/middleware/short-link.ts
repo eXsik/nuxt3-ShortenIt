@@ -3,6 +3,7 @@ import { serverSupabaseClient } from '#supabase/server';
 import type { Database } from '~/types/supabase';
 
 const RESERVED = new Set([
+  "try",
   "dashboard",
   "auth",
   "api",
@@ -43,20 +44,20 @@ export default defineEventHandler(async (event) => {
   if (ip) {
     const geo = geoip.lookup(ip);
 
-    void client
-    .from("clicks")
-    .insert({
-      link_id: link.id,
-      ip,
-      country: geo?.country ?? null,
-      city: geo?.city ?? null,
-      user_agent: userAgent,
-    })
-    .then(({ error: clickError }) => {
+    try {
+      const { error: clickError } = await client.from("clicks").insert({
+        link_id: link.id,
+        ip,
+        country: geo?.country ?? null,
+        city: geo?.city ?? null,
+        user_agent: userAgent,
+      });
       if (clickError) {
         console.error("Failed to record click:", clickError.message);
       }
-    });
+    } catch {
+      console.error("Failed to record click");
+    }
   }
 
   return sendRedirect(event, link.long_url, 302);

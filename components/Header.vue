@@ -40,12 +40,14 @@
             type="button"
             class="!px-1.5 text-xs md:text-sm md:px-5 touch-manipulation"
             @click="handleLogout"
+            :is-loading="isLoggingOut"
           >
             Log out
           </CustomButton>
         </li>
       </ul>
     </nav>
+    <p v-if="logoutError" role="alert" class="mx-auto max-w-7xl px-4 pb-3 text-sm text-rose-300">{{ logoutError }}</p>
   </header>
 </template>
 
@@ -54,15 +56,28 @@ import CustomButton from "./CustomButton.vue";
 
 const user = useSupabaseUser();
 const client = useSupabaseClient();
+const router = useRouter();
+const isLoggingOut = ref(false);
+const logoutError = ref('');
 
 const { isActive } = useActiveLink();
 
 const handleLogout = async () => {
-  await client.auth.signOut();
-
-  useRouter().push({
-    name: "index",
-  });
+  if (isLoggingOut.value) return;
+  isLoggingOut.value = true;
+  logoutError.value = '';
+  try {
+    const { error } = await client.auth.signOut();
+    if (error) {
+      logoutError.value = 'Could not sign out. Try again.';
+      return;
+    }
+    await router.push({ name: 'index' });
+  } catch {
+    logoutError.value = 'Could not sign out. Try again.';
+  } finally {
+    isLoggingOut.value = false;
+  }
 };
 </script>
 

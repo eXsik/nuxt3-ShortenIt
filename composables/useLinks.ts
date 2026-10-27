@@ -8,7 +8,8 @@ export const useLinks = () => {
     data: links,
     error: linksError,
     refresh: refreshLinks,
-  } = useAsyncData("links", async () => {
+    pending: linksPending,
+  } = useAsyncData(`links-${user.value?.id ?? 'guest'}`, async () => {
     if (user?.value?.id) {
       const { data, error } = await client
         .from("links")
@@ -17,8 +18,7 @@ export const useLinks = () => {
         .eq("user_id", user?.value?.id);
 
       if (error) {
-        console.error("Error fetching links:", error);
-        return [];
+        throw createError({ statusCode: 500, statusMessage: 'Could not load links. Try again.' });
       }
       return data;
     }
@@ -26,5 +26,5 @@ export const useLinks = () => {
     return [];
   });
 
-  return { links, linksError, refreshLinks };
+  return { links, linksError, linksPending, refreshLinks };
 };

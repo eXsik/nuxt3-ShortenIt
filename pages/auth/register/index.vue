@@ -1,6 +1,6 @@
 <template>
-  <section class="h-[calc(100vh-65px)] grid place-content-center">
-    <div class="container">
+  <section class="min-h-[calc(100svh-65px)] grid place-items-center px-4 py-10">
+    <div class="w-full max-w-md">
       <Card class="flex flex-col items-center">
         <div
           class="flex justify-center size-20 items-center rounded-full border shadow-xl border-white/20 mb-6"
